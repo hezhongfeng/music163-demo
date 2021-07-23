@@ -29,13 +29,21 @@ export default defineComponent({
 <style lang="scss">
 .index {
   height: 100%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: url('assets/index/background.jpg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: 50%;
   .loading {
     width: 55vw;
     height: 55vw;
     background-image: url('assets/index/Loading.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: 50%;
     position: relative;
     display: flex;
     flex-direction: column;
