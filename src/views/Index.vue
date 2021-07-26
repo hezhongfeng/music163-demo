@@ -1,15 +1,22 @@
 <template>
   <div class="index">
-    <div class="loading">
+    <div class="loading" v-show="showLoading" :class="{ show: showLoading }">
       <div class="title" @click="onEnter">进入</div>
       <div class="desc">请打开声音</div>
+    </div>
+    <div class="ani" v-show="!showLoading" :class="{ hide: !showInit }">
+      <div>
+        <div class="number">1%</div>
+        <div class="label">请打开声音</div>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { ref, defineComponent } from 'vue';
+import { ref, defineComponent, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import anime from 'animejs/lib/anime.es.js';
 
 export default defineComponent({
   name: 'index',
@@ -17,11 +24,54 @@ export default defineComponent({
   setup: () => {
     const router = useRouter();
 
+    let showLoading = ref(false);
+    let showInit = ref(true);
+
+    onMounted(() => {
+      anime({
+        targets: '.ani',
+        rotate: {
+          value: 360,
+          duration: 3000,
+          easing: 'easeInOutSine'
+        },
+        scale: {
+          value: 10,
+          duration: 3000,
+          easing: 'easeInOutQuart'
+        }
+      });
+
+      const number = {
+        value: 1
+      };
+
+      const objPropLogEl = document.querySelector('.number');
+
+      anime({
+        targets: number,
+        value: 100,
+        easing: 'linear',
+        round: 1,
+        duration: 2700,
+        update: function () {
+          objPropLogEl.innerHTML = JSON.stringify(number.value) + '%';
+        }
+      });
+
+      setTimeout(() => {
+        setTimeout(() => {
+          showLoading.value = true;
+        }, 300);
+        showInit.value = false;
+      }, 4000);
+    });
+
     const onEnter = () => {
       router.push('session1');
     };
 
-    return { onEnter };
+    return { onEnter, showLoading, showInit };
   }
 });
 </script>
@@ -49,6 +99,7 @@ export default defineComponent({
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transition: all 0.52;
     .title {
       font-size: 20px;
       line-height: 1.8;
@@ -58,6 +109,43 @@ export default defineComponent({
       font-size: 14px;
       color: #191b18;
       opacity: 0.4;
+    }
+  }
+  .ani {
+    width: 55vw;
+    height: 55vw;
+    scale: 0.1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    transition: all 0.52;
+  }
+  .show {
+    animation: show 0.5s;
+  }
+
+  @keyframes show {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .hide {
+    animation: hide 0.3s;
+  }
+
+  @keyframes hide {
+    0% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
     }
   }
 }
