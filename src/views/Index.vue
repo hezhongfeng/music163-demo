@@ -28,6 +28,7 @@ export default defineComponent({
     let showInit = ref(true);
 
     onMounted(() => {
+      // 旋转动画
       anime({
         targets: '.ani',
         rotate: {
@@ -39,6 +40,20 @@ export default defineComponent({
           value: 10,
           duration: 3000,
           easing: 'easeInOutQuart'
+        },
+        'font-weight': {
+          value: 500,
+          durnion: 3000
+        },
+        complete() {
+          // 旋转完成后，等待 1000ms 开始百分比消失动画
+          setTimeout(() => {
+            // 百分比消失动画完成后，开始loading显示动画
+            setTimeout(() => {
+              showLoading.value = true;
+            }, 300);
+            showInit.value = false;
+          }, 1000);
         }
       });
 
@@ -48,6 +63,7 @@ export default defineComponent({
 
       const objPropLogEl = document.querySelector('.number');
 
+      // 数字变化动画
       anime({
         targets: number,
         value: 100,
@@ -58,13 +74,6 @@ export default defineComponent({
           objPropLogEl.innerHTML = JSON.stringify(number.value) + '%';
         }
       });
-
-      setTimeout(() => {
-        setTimeout(() => {
-          showLoading.value = true;
-        }, 300);
-        showInit.value = false;
-      }, 4000);
     });
 
     const onEnter = () => {
@@ -118,7 +127,7 @@ export default defineComponent({
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: 600;
+    font-size: 24px;
     transition: all 0.52;
   }
   .show {
