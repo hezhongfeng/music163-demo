@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, onMounted } from 'vue';
+import { ref, defineComponent, onMounted, nextTick } from 'vue';
 import Mask from '@/components/mask';
 
 export default defineComponent({
@@ -12,7 +12,10 @@ export default defineComponent({
   props: {},
   setup(props) {
     onMounted(() => {
-      Mask();
+      const mask = Mask();
+      nextTick(() => {
+        mask.component.ctx.show();
+      });
     });
   }
 });

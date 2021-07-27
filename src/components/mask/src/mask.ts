@@ -1,22 +1,16 @@
-import MessageConstructor from './index.vue';
+import MaskConstructor from './index.vue';
 import { createVNode, render } from 'vue';
 
-let vm: any;
-const instances: any = [];
-let seed = 1;
+let instance: any = null;
 
 const Mask: any = function (): any {
-  const id = 'message_' + seed++;
-
-  const container = document.createElement('div');
-
-  container.className = `container_${id}`;
-
-  vm = createVNode(MessageConstructor, {}, null);
-
-  render(vm, container);
-  instances.push({ vm, $el: container });
-  document.body.appendChild(container);
+  if (!instance) {
+    const container = document.createElement('div');
+    instance = createVNode(MaskConstructor);
+    render(instance, container);
+    document.body.appendChild(container);
+  }
+  return instance;
 } as any;
 
 export default Mask;

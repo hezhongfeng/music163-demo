@@ -11,7 +11,19 @@ import anime from 'animejs/lib/anime.es.js';
 export default defineComponent({
   name: 'mask',
   components: {},
-  props: {},
+  props: {
+    // show: {
+    //   type: Function
+    // },
+    // hide: {
+    //   type: Function
+    // }
+  },
+  methods: {
+    showw() {
+      console.log('showw');
+    }
+  },
   setup(props) {
     const canvas = ref(null);
 
@@ -20,43 +32,10 @@ export default defineComponent({
     let pageWidth: number = 0;
     let pageHeight: number = 0;
 
-    onMounted(() => {
-      let ctx = canvas.value.getContext('2d');
+    let points: any = null;
+    let ctx = null;
 
-      pageWidth = window.innerWidth;
-      pageHeight = window.innerHeight;
-
-      const heights = [0, 0.5 * pageHeight, pageHeight];
-      const points = {
-        p1: {
-          x: pageWidth,
-          y: heights[0]
-        },
-        p2: {
-          x: pageWidth,
-          y: heights[1]
-        },
-        p3: {
-          x: pageWidth,
-          y: heights[2]
-        },
-        p4: {
-          x: pageWidth,
-          y: heights[2]
-        },
-        p5: {
-          x: pageWidth,
-          y: heights[0]
-        }
-      };
-
-      const cps = 0.2 * pageHeight;
-
-      canvas.value.width = pageWidth;
-      canvas.value.height = pageHeight;
-
-      ctx.fillStyle = '#f1f1f1';
-
+    const show = function () {
       anime({
         targets: points.p1,
         x: 0,
@@ -111,9 +90,45 @@ export default defineComponent({
         duration: 650,
         update: function () {}
       });
+    };
+
+    onMounted(() => {
+      ctx = canvas.value.getContext('2d');
+
+      pageWidth = window.innerWidth;
+      pageHeight = window.innerHeight;
+
+      const heights = [0, 0.5 * pageHeight, pageHeight];
+      points = {
+        p1: {
+          x: pageWidth,
+          y: heights[0]
+        },
+        p2: {
+          x: pageWidth,
+          y: heights[1]
+        },
+        p3: {
+          x: pageWidth,
+          y: heights[2]
+        },
+        p4: {
+          x: pageWidth,
+          y: heights[2]
+        },
+        p5: {
+          x: pageWidth,
+          y: heights[0]
+        }
+      };
+
+      canvas.value.width = pageWidth;
+      canvas.value.height = pageHeight;
+
+      ctx.fillStyle = '#f1f1f1';
     });
 
-    return { canvas };
+    return { canvas, show };
   }
 });
 </script>
