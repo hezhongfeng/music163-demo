@@ -42,7 +42,7 @@ export default defineComponent({
           easing: 'easeInOutQuart'
         },
         'font-weight': {
-          value: 500,
+          value: 800,
           durnion: 3000
         },
         complete() {
