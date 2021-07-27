@@ -16,8 +16,8 @@ export default defineComponent({
     const canvas = ref(null);
     const page = ref(null);
 
-    let pageWidth = null;
-    let pageHeight = null;
+    let pageWidth: number = 0;
+    let pageHeight: number = 0;
 
     const drawCloth = () => {
       console.log(111);
@@ -75,11 +75,18 @@ export default defineComponent({
             points.p1.x,
             points.p1.y,
             points.p2.x,
-            points.p2.y - 0.3 * pageHeight,
+            points.p2.y - 0.2 * pageHeight,
             points.p2.x,
             points.p2.y
           );
-          // ctx.bezierCurveTo(points.p2.x, points.p2.y + cps, points.p3.x, points.p3.y, points.p3.x, points.p3.y);
+          ctx.bezierCurveTo(
+            points.p2.x,
+            points.p2.y + 0.2 * pageHeight,
+            points.p3.x,
+            points.p3.y,
+            points.p3.x,
+            points.p3.y
+          );
           ctx.lineTo(points.p4.x, points.p4.y);
           ctx.lineTo(points.p5.x, points.p5.y);
           ctx.closePath();
