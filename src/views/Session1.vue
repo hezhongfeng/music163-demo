@@ -1,23 +1,32 @@
 <template>
-  <div class="session1" ref="page"></div>
+  <div class="session1" ref="page" @click="onEnter">Session1</div>
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, onMounted, nextTick, inject } from 'vue';
+import { defineComponent, onMounted, inject } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'session1',
   components: {},
   props: {},
-  setup(props) {
+  setup() {
     const Mask = inject('mask');
+    let mask = null;
+    const router = useRouter();
 
     onMounted(() => {
-      const mask = Mask();
-      nextTick(() => {
-        mask.component.ctx.show();
-      });
+      mask = Mask();
     });
+
+    const onEnter = () => {
+      mask.component.ctx.show();
+      setTimeout(() => {
+        router.push('session2');
+      }, 500);
+    };
+
+    return { onEnter };
   }
 });
 </script>

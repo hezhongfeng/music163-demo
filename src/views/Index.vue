@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, onMounted } from 'vue';
+import { ref, defineComponent, onMounted, inject } from 'vue';
 import { useRouter } from 'vue-router';
 import anime from 'animejs/lib/anime.es.js';
 
@@ -24,10 +24,14 @@ export default defineComponent({
   setup: () => {
     const router = useRouter();
 
+    const Mask = inject('mask');
+
     let showLoading = ref(false);
     let showInit = ref(true);
+    let mask = null;
 
     onMounted(() => {
+      mask = Mask();
       // 旋转动画
       anime({
         targets: '.ani',
@@ -53,7 +57,7 @@ export default defineComponent({
               showLoading.value = true;
             }, 300);
             showInit.value = false;
-          }, 1000);
+          }, 500);
         }
       });
 
@@ -77,7 +81,10 @@ export default defineComponent({
     });
 
     const onEnter = () => {
-      router.push('session1');
+      mask.component.ctx.show();
+      setTimeout(() => {
+        router.push('session1');
+      }, 500);
     };
 
     return { onEnter, showLoading, showInit };

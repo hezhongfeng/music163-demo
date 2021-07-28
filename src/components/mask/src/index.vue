@@ -1,6 +1,6 @@
 <template>
   <teleport to="body">
-    <canvas class="mask-canvas" ref="canvas"></canvas>
+    <canvas class="mask-canvas" ref="canvas" :class="{ 'mask-canvas-posi': isShow }"></canvas>
   </teleport>
 </template>
 
@@ -10,15 +10,6 @@ import anime from 'animejs/lib/anime.es.js';
 
 export default defineComponent({
   name: 'mask',
-  components: {},
-  props: {
-    // show: {
-    //   type: Function
-    // },
-    // hide: {
-    //   type: Function
-    // }
-  },
   methods: {
     showw() {
       console.log('showw');
@@ -29,13 +20,39 @@ export default defineComponent({
 
     console.log('Mask', 18);
 
+    const isShow = ref(false);
+
     let pageWidth: number = 0;
     let pageHeight: number = 0;
 
     let points: any = null;
     let ctx = null;
 
-    const show = function () {
+    const show = () => {
+      isShow.value = true;
+      const heights = [0, 0.5 * pageHeight, pageHeight];
+      points = {
+        p1: {
+          x: pageWidth,
+          y: heights[0]
+        },
+        p2: {
+          x: pageWidth,
+          y: heights[1]
+        },
+        p3: {
+          x: pageWidth,
+          y: heights[2]
+        },
+        p4: {
+          x: pageWidth,
+          y: heights[2]
+        },
+        p5: {
+          x: pageWidth,
+          y: heights[0]
+        }
+      };
       anime({
         targets: points.p1,
         x: 0,
@@ -69,6 +86,9 @@ export default defineComponent({
           ctx.fill();
           ctx.strokeStyle = '#f1f1f1';
           ctx.stroke();
+        },
+        complete: function () {
+          isShow.value = false;
         }
       });
 
@@ -98,48 +118,19 @@ export default defineComponent({
       pageWidth = window.innerWidth;
       pageHeight = window.innerHeight;
 
-      const heights = [0, 0.5 * pageHeight, pageHeight];
-      points = {
-        p1: {
-          x: pageWidth,
-          y: heights[0]
-        },
-        p2: {
-          x: pageWidth,
-          y: heights[1]
-        },
-        p3: {
-          x: pageWidth,
-          y: heights[2]
-        },
-        p4: {
-          x: pageWidth,
-          y: heights[2]
-        },
-        p5: {
-          x: pageWidth,
-          y: heights[0]
-        }
-      };
-
       canvas.value.width = pageWidth;
       canvas.value.height = pageHeight;
 
       ctx.fillStyle = '#f1f1f1';
     });
 
-    return { canvas, show };
+    return { canvas, show, isShow };
   }
 });
 </script>
 
 <style lang="scss">
 .mask-canvas {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
@@ -147,5 +138,13 @@ export default defineComponent({
   justify-content: center;
   width: 100vw;
   height: 100vh;
+}
+
+.mask-canvas-posi {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 </style>
