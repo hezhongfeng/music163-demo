@@ -15,7 +15,6 @@
 
 <script lang="ts">
 import { ref, defineComponent, onMounted, inject } from 'vue';
-import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import anime from 'animejs/lib/anime.es.js';
 
@@ -23,7 +22,6 @@ export default defineComponent({
   name: 'index',
   props: {},
   setup: () => {
-    const router = useRouter();
     const store = useStore();
 
     const Mask = inject('mask');

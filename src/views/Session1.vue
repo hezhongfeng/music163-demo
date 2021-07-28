@@ -4,8 +4,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, inject } from 'vue';
-import { useRouter } from 'vue-router';
-// import { useStore } from 'vuex';
+import { useStore } from 'vuex';
 
 export default defineComponent({
   name: 'session1',
@@ -14,7 +13,7 @@ export default defineComponent({
   setup() {
     const Mask = inject('mask');
     let mask = null;
-    const router = useRouter();
+    const store = useStore();
 
     onMounted(() => {
       mask = Mask();
@@ -23,7 +22,10 @@ export default defineComponent({
     const onEnter = () => {
       mask.component.ctx.show();
       setTimeout(() => {
-        router.push('session2');
+        store.commit('routeNext', {
+          currentViewName: 'session2',
+          nextViewName: ''
+        });
       }, 500);
     };
 
