@@ -16,6 +16,7 @@
 <script lang="ts">
 import { ref, defineComponent, onMounted, inject } from 'vue';
 import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 import anime from 'animejs/lib/anime.es.js';
 
 export default defineComponent({
@@ -23,6 +24,7 @@ export default defineComponent({
   props: {},
   setup: () => {
     const router = useRouter();
+    const store = useStore();
 
     const Mask = inject('mask');
 
@@ -83,7 +85,10 @@ export default defineComponent({
     const onEnter = () => {
       mask.component.ctx.show();
       setTimeout(() => {
-        router.push('session1');
+        store.commit('routeNext', {
+          currentViewName: 'session1',
+          nextViewName: 'session2'
+        });
       }, 500);
     };
 

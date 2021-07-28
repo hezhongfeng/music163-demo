@@ -5,6 +5,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, inject } from 'vue';
 import { useRouter } from 'vue-router';
+// import { useStore } from 'vuex';
 
 export default defineComponent({
   name: 'session1',
