@@ -3,14 +3,15 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, onMounted, nextTick } from 'vue';
-import Mask from '@/components/mask';
+import { ref, defineComponent, onMounted, nextTick, inject } from 'vue';
 
 export default defineComponent({
   name: 'session1',
   components: {},
   props: {},
   setup(props) {
+    const Mask = inject('mask');
+
     onMounted(() => {
       const mask = Mask();
       nextTick(() => {
