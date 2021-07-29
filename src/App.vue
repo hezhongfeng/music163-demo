@@ -1,18 +1,24 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <router-view :name="currentViewName"></router-view>
+  <router-view :name="nextViewName"></router-view>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
+import { defineComponent, computed } from 'vue';
+import { useStore } from 'vuex';
 
 export default defineComponent({
   name: 'App',
-  components: {
-    HelloWorld
+  setup: () => {
+    const store = useStore();
+
+    // 注意 ，这里使用两个 viewName 完成了页面的跳转，next 的页面被预加载
+    const currentViewName = computed(() => store.getters.currentViewName);
+    const nextViewName = computed(() => store.getters.nextViewName);
+
+    return { currentViewName, nextViewName };
   }
-})
+});
 </script>
 
 <style>
@@ -22,6 +28,6 @@ export default defineComponent({
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  height: 100vh;
 }
 </style>
