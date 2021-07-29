@@ -18,15 +18,13 @@ export default defineComponent({
   setup(props) {
     const canvas = ref(null);
 
-    console.log('Mask', 18);
-
     const isShow = ref(false);
 
     let pageWidth: number = 0;
     let pageHeight: number = 0;
 
     let points: any = null;
-    let ctx = null;
+    let ctx: any = null;
 
     const show = () => {
       isShow.value = true;

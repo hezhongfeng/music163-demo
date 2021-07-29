@@ -12,6 +12,7 @@ export default defineComponent({
   setup: () => {
     const store = useStore();
 
+    // 注意 ，这里使用两个 viewName 完成了页面的跳转，next 的页面被预加载
     const currentViewName = computed(() => store.getters.currentViewName);
     const nextViewName = computed(() => store.getters.nextViewName);
 

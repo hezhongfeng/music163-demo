@@ -1,8 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
-const Index = () => import('views/Index.vue');
-const Session1 = () => import('views/Session1.vue');
-const Session2 = () => import('views/Session2.vue');
+const Index = () => import('views/index/Index.vue');
+const Session1 = () => import('views/session1/Session1.vue');
+const Session2 = () => import('views/session2/Session2.vue');
 
 const routes = [
   {
@@ -13,8 +13,6 @@ const routes = [
       session2: Session2
     }
   }
-  // { path: '/session1', name: 'session1', component: Session1 },
-  // { path: '/session2', name: 'session2', component: Session2 }
 ];
 
 const router = createRouter({

@@ -1,7 +1,7 @@
 <template>
   <div class="index">
     <div class="loading" v-show="showLoading" :class="{ show: showLoading }">
-      <div class="title" @click="onEnter">进入</div>
+      <div class="title" @click="onNext">进入</div>
       <div class="desc">请打开声音</div>
     </div>
     <div class="ani" v-show="!showLoading" :class="{ hide: !showInit }">
@@ -14,83 +14,26 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, onMounted, inject } from 'vue';
-import { useStore } from 'vuex';
-import anime from 'animejs/lib/anime.es.js';
+import { defineComponent } from 'vue';
+import useNext from '../useNext';
+import useAnimation from './useAnimation';
 
 export default defineComponent({
   name: 'index',
   props: {},
   setup: () => {
-    const store = useStore();
+    const { nextPage } = useNext();
 
-    const Mask = inject('mask');
+    const { showLoading, showInit } = useAnimation();
 
-    let showLoading = ref(false);
-    let showInit = ref(true);
-    let mask = null;
-
-    onMounted(() => {
-      mask = Mask();
-      // 旋转动画
-      anime({
-        targets: '.ani',
-        rotate: {
-          value: 360,
-          duration: 3000,
-          easing: 'easeInOutSine'
-        },
-        scale: {
-          value: 10,
-          duration: 3000,
-          easing: 'easeInOutQuart'
-        },
-        'font-weight': {
-          value: 800,
-          durnion: 3000
-        },
-        complete() {
-          // 旋转完成后，等待 1000ms 开始百分比消失动画
-          setTimeout(() => {
-            // 百分比消失动画完成后，开始loading显示动画
-            setTimeout(() => {
-              showLoading.value = true;
-            }, 300);
-            showInit.value = false;
-          }, 500);
-        }
+    const onNext = () => {
+      nextPage({
+        currentViewName: 'session1',
+        nextViewName: 'session2'
       });
-
-      const number = {
-        value: 1
-      };
-
-      const objPropLogEl = document.querySelector('.number');
-
-      // 数字变化动画
-      anime({
-        targets: number,
-        value: 100,
-        easing: 'linear',
-        round: 1,
-        duration: 2700,
-        update: function () {
-          objPropLogEl.innerHTML = JSON.stringify(number.value) + '%';
-        }
-      });
-    });
-
-    const onEnter = () => {
-      mask.component.ctx.show();
-      setTimeout(() => {
-        store.commit('routeNext', {
-          currentViewName: 'session1',
-          nextViewName: 'session2'
-        });
-      }, 500);
     };
 
-    return { onEnter, showLoading, showInit };
+    return { onNext, showLoading, showInit };
   }
 });
 </script>
