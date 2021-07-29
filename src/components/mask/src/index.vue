@@ -57,7 +57,7 @@ export default defineComponent({
         easing: 'easeInQuad',
         round: 10,
         delay: 50,
-        duration: 600,
+        duration: 400,
         update: function () {
           ctx.clearRect(0, 0, pageWidth, pageHeight);
           ctx.beginPath();
@@ -96,8 +96,7 @@ export default defineComponent({
         easing: 'easeInQuad',
         round: 20,
         delay: 50,
-        duration: 600,
-        update: function () {}
+        duration: 400
       });
 
       anime({
@@ -105,8 +104,7 @@ export default defineComponent({
         x: 0,
         easing: 'easeOutQuad',
         round: 20,
-        duration: 650,
-        update: function () {}
+        duration: 450
       });
     };
 
