@@ -18,5 +18,8 @@ export default defineComponent({
 
 <style lang="scss">
 .session2 {
+  width: 100%;
+  height: 100vh;
+  flex-shrink: 0;
 }
 </style>

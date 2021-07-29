@@ -4,7 +4,7 @@ const store = createStore({
   state() {
     return {
       currentViewName: 'default',
-      nextViewName: 'session1'
+      nextViewName: 'index2'
     };
   },
   getters: {

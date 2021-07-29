@@ -27,9 +27,8 @@ export default defineComponent({
 
 <style lang="scss">
 .session1 {
-  .mask {
-    width: 100vw;
-    height: 100vh;
-  }
+  width: 100%;
+  height: 100vh;
+  flex-shrink: 0;
 }
 </style>

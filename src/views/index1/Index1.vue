@@ -1,5 +1,5 @@
 <template>
-  <div class="index">
+  <div class="index1">
     <div class="loading" v-show="showLoading" :class="{ show: showLoading }">
       <div class="title" @click="onNext">进入</div>
       <div class="desc">请打开声音</div>
@@ -28,8 +28,8 @@ export default defineComponent({
 
     const onNext = () => {
       nextPage({
-        currentViewName: 'session1',
-        nextViewName: 'session2'
+        currentViewName: 'index2',
+        nextViewName: 'session1'
       });
     };
 
@@ -39,20 +39,21 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.index {
-  height: 100%;
-  width: 100%;
+.index1 {
+  height: 100vh;
+  width: 100vw;
+  flex-shrink: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('assets/index/background.jpg');
+  background-image: url('assets/index1/background.jpg');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   background-position: 50%;
   .loading {
     width: 55vw;
     height: 55vw;
-    background-image: url('assets/index/Loading.svg');
+    background-image: url('assets/index1/Loading.svg');
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: 50%;
