@@ -16,7 +16,7 @@ export default defineComponent({
     const onNext = () => {
       nextPage({
         currentViewName: 'session2',
-        nextViewName: ''
+        nextViewName: 'session5'
       });
     };
 
