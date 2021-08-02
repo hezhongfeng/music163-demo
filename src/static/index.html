@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cloud</title>
+  </head>
+  <body>
+    <script type="text/javascript" src="./three.min.js"></script>
+    <script id="vs" type="x-shader/x-vertex">
+      varying vec2 vUv;
+      void main()
+      {
+          vUv = uv;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+      }
+    </script>
+
+    <script id="fs" type="x-shader/x-fragment">
+       uniform sampler2D map;
+       uniform vec3 fogColor;
+       uniform float fogNear;
+       uniform float fogFar;
+       varying vec2 vUv;
+       void main()
+       {
+           float depth = gl_FragCoord.z / gl_FragCoord.w;
+           float fogFactor = smoothstep( fogNear, fogFar, depth );
+           gl_FragColor = texture2D(map, vUv );
+           gl_FragColor.w *= pow( gl_FragCoord.z, 20.0 );
+           gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );
+      }
+    </script>
+
+    <script type="text/javascript">
+      var container;
+      var camera, scene, renderer;
+      var mesh, geometry, material;
+
+      var mouseX = 0,
+        mouseY = 0;
+      var start_time = Date.now();
+
+      var windowHalfX = window.innerWidth / 2;
+      var windowHalfY = window.innerHeight / 2;
+
+      // init();
+
+      function init() {
+        container = document.createElement('div');
+        document.body.appendChild(container);
+
+        camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 1, 1000);
+
+        scene = new THREE.Scene();
+
+        geometry = new THREE.BufferGeometry();
+
+        // 纹理贴图
+        var texture = THREE.ImageUtils.loadTexture('cloud10.png', null, animate);
+
+        // 雾
+        var fog = new THREE.Fog(0x4584b4, -100, 3000);
+
+        // 着色器材质
+        material = new THREE.ShaderMaterial({
+          uniforms: {
+            map: {
+              type: 't',
+              value: texture
+            },
+            fogColor: {
+              type: 'c',
+              value: fog.color
+            },
+            fogNear: {
+              type: 'f',
+              value: fog.near
+            },
+            fogFar: {
+              type: 'f',
+              value: fog.far
+            }
+          },
+          // 顶点着色器
+          vertexShader: document.getElementById('vs').textContent,
+          // 片元着色器
+          fragmentShader: document.getElementById('fs').textContent,
+          depthWrite: false,
+          depthTest: false,
+          transparent: true
+        });
+
+        // 平面
+        var plane = new THREE.Mesh(new THREE.PlaneGeometry(64, 64));
+
+        for (var i = 0; i < 1000; i++) {
+          plane.position.x = Math.random() * 1000 - 500;
+          plane.position.y = -Math.random() * Math.random() * 200 - 15;
+          plane.position.z = i;
+          plane.rotation.z = Math.random() * Math.PI;
+          plane.scale.x = plane.scale.y = Math.random() * Math.random() * 1.5 + 0.5;
+
+          //  合并起来
+          THREE.GeometryUtils.merge(geometry, plane);
+        }
+
+        mesh = new THREE.Mesh(geometry, material);
+        scene.add(mesh);
+
+        // renderer = new THREE.WebGLRenderer({
+        //   antialias: false
+        // });
+        renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        container.appendChild(renderer.domElement);
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+
+        // 变动摄像机的位置
+        position = ((Date.now() - start_time) * 0.03) % 2000;
+
+        camera.position.x += (mouseX - camera.position.x) * 0.01;
+        camera.position.y += (-mouseY - camera.position.y) * 0.01;
+        camera.position.z = -position + 2000;
+
+        renderer.render(scene, camera);
+      }
+    </script>
+  </body>
+</html>
