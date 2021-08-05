@@ -12,7 +12,7 @@ export default function useNext() {
         currentViewName,
         nextViewName
       });
-    }, 400);
+    }, 500);
   };
 
   return { nextPage };

@@ -51,13 +51,33 @@ export default defineComponent({
           y: heights[0]
         }
       };
+
       anime({
         targets: points.p1,
         x: 0,
-        easing: 'easeInQuad',
-        round: 10,
+        easing: 'easeInQuart',
         delay: 50,
-        duration: 400,
+        duration: 500
+      });
+
+      anime({
+        targets: points.p2,
+        x: 0,
+        easing: 'easeInSine',
+        duration: 500
+      });
+
+      anime({
+        targets: points.p3,
+        x: 0,
+        easing: 'easeInQuart',
+        delay: 50,
+        duration: 500
+      });
+
+      // 画曲线
+      anime({
+        duration: 550,
         update: function () {
           // 清除上一次的绘制
           ctx.clearRect(0, 0, pageWidth, pageHeight);
@@ -92,23 +112,6 @@ export default defineComponent({
         complete: function () {
           isShow.value = false;
         }
-      });
-
-      anime({
-        targets: points.p3,
-        x: 0,
-        easing: 'easeInQuad',
-        round: 20,
-        delay: 50,
-        duration: 400
-      });
-
-      anime({
-        targets: points.p2,
-        x: 0,
-        easing: 'easeOutQuad',
-        round: 20,
-        duration: 450
       });
     };
 
