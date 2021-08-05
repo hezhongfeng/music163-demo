@@ -59,9 +59,11 @@ export default defineComponent({
         delay: 50,
         duration: 400,
         update: function () {
+          // 清除上一次的绘制
           ctx.clearRect(0, 0, pageWidth, pageHeight);
           ctx.beginPath();
           ctx.moveTo(points.p1.x, points.p1.y);
+          // 幕布的上半区域
           ctx.bezierCurveTo(
             points.p1.x,
             points.p1.y,
@@ -70,6 +72,7 @@ export default defineComponent({
             points.p2.x,
             points.p2.y
           );
+          // 幕布的下半区域
           ctx.bezierCurveTo(
             points.p2.x,
             points.p2.y + 0.2 * pageHeight,
@@ -78,6 +81,7 @@ export default defineComponent({
             points.p3.x,
             points.p3.y
           );
+          // 已拉动部分的矩形区域
           ctx.lineTo(points.p4.x, points.p4.y);
           ctx.lineTo(points.p5.x, points.p5.y);
           ctx.closePath();

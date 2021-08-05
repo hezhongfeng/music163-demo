@@ -8,6 +8,10 @@
   </head>
   <body>
     <script type="text/javascript" src="./three.min.js"></script>
+    <script type="text/javascript" src="./jsm/utils/BufferGeometryUtils.js"></script>
+    <!-- import {BufferGeometryUtils} from "../utils/BufferGeometryUtils.js" -->
+
+    <!-- examples/jsm/utils/BufferGeometryUtils.js -->
     <script id="vs" type="x-shader/x-vertex">
       varying vec2 vUv;
       void main()
@@ -34,6 +38,7 @@
     </script>
 
     <script type="text/javascript">
+      import { BufferGeometryUtils } from 'https://cdn.skypack.dev/three@131/examples/jsm/utils/BufferGeometryUtils.js';
       var container;
       var camera, scene, renderer;
       var mesh, geometry, material;
@@ -45,7 +50,7 @@
       var windowHalfX = window.innerWidth / 2;
       var windowHalfY = window.innerHeight / 2;
 
-      // init();
+      init();
 
       function init() {
         container = document.createElement('div');
@@ -102,23 +107,23 @@
           plane.rotation.z = Math.random() * Math.PI;
           plane.scale.x = plane.scale.y = Math.random() * Math.random() * 1.5 + 0.5;
 
-          //  合并起来
-          THREE.GeometryUtils.merge(geometry, plane);
+          // 合并起来
+          console.log(BufferGeometryUtils);
+          // THREE.BufferGeometryUtils.mergeBufferGeometries([geometry, plane]);
         }
 
         mesh = new THREE.Mesh(geometry, material);
         scene.add(mesh);
 
-        // renderer = new THREE.WebGLRenderer({
-        //   antialias: false
-        // });
         renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
         container.appendChild(renderer.domElement);
+
+        console.log(renderer);
       }
 
       function animate() {
-        requestAnimationFrame(animate);
+        // requestAnimationFrame(animate);
 
         // 变动摄像机的位置
         position = ((Date.now() - start_time) * 0.03) % 2000;
@@ -127,7 +132,9 @@
         camera.position.y += (-mouseY - camera.position.y) * 0.01;
         camera.position.z = -position + 2000;
 
-        renderer.render(scene, camera);
+        console.log(renderer);
+
+        // renderer.render(scene, camera);
       }
     </script>
   </body>
