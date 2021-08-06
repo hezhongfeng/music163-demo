@@ -1,5 +1,5 @@
 <template>
-  <teleport to="body">
+  <teleport to="#app">
     <canvas class="mask-canvas" ref="canvas" :class="{ 'mask-canvas-posi': isShow }"></canvas>
   </teleport>
 </template>
@@ -125,8 +125,8 @@ export default defineComponent({
     onMounted(() => {
       ctx = canvas.value.getContext('2d');
 
-      pageWidth = window.innerWidth;
-      pageHeight = window.innerHeight;
+      pageWidth = document.getElementById('app').clientWidth;
+      pageHeight = document.getElementById('app').clientHeight;
 
       canvas.value.width = pageWidth;
       canvas.value.height = pageHeight;
@@ -146,7 +146,7 @@ export default defineComponent({
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
 }
 

@@ -51,8 +51,8 @@ export default defineComponent({
   background-repeat: no-repeat;
   background-position: 50%;
   .loading {
-    width: 55vw;
-    height: 55vw;
+    width: 55%;
+    height: 55%;
     background-image: url('assets/index1/Loading.svg');
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -75,8 +75,8 @@ export default defineComponent({
     }
   }
   .ani {
-    width: 55vw;
-    height: 55vw;
+    width: 55%;
+    height: 55%;
     scale: 0.1;
     display: flex;
     justify-content: center;
