@@ -1,4 +1,5 @@
 <template>
+  <!-- 这个canvas会被渲染为 app 的子级 -->
   <teleport to="#app">
     <canvas class="mask-canvas" ref="canvas" :class="{ 'mask-canvas-posi': isShow }"></canvas>
   </teleport>
@@ -52,6 +53,7 @@ export default defineComponent({
         }
       };
 
+      // P1点的变化
       anime({
         targets: points.p1,
         x: 0,
@@ -60,6 +62,7 @@ export default defineComponent({
         duration: 500
       });
 
+      // P2点的变化
       anime({
         targets: points.p2,
         x: 0,
@@ -74,6 +77,7 @@ export default defineComponent({
         duration: 500
       });
 
+      // P3点的变化
       anime({
         targets: points.p3,
         x: 0,
