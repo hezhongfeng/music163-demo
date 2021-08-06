@@ -41,7 +41,7 @@ export default defineComponent({
 <style lang="scss">
 .index1 {
   height: 100vh;
-  width: 100vw;
+  width: 100%;
   flex-shrink: 0;
   display: flex;
   justify-content: center;

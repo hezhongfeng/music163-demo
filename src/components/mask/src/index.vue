@@ -68,6 +68,13 @@ export default defineComponent({
       });
 
       anime({
+        targets: points.p2,
+        y: 0.6,
+        easing: 'easeInSine',
+        duration: 500
+      });
+
+      anime({
         targets: points.p3,
         x: 0,
         easing: 'easeInQuart',
