@@ -69,7 +69,7 @@ export default defineComponent({
 
       anime({
         targets: points.p2,
-        y: 0.6,
+        y: 0.6 * pageHeight,
         easing: 'easeInSine',
         duration: 500
       });
