@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, onMounted } from 'vue';
+import { Ref, ref, defineComponent, onMounted } from 'vue';
 import anime from 'animejs/lib/anime.es.js';
 
 export default defineComponent({
@@ -17,7 +17,7 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const canvas = ref(null);
+    const canvas: Ref<HTMLCanvasElement | null> = ref(null);
 
     const isShow = ref(false);
 
@@ -127,13 +127,13 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      ctx = canvas.value.getContext('2d');
+      ctx = canvas.value!.getContext('2d');
 
-      pageWidth = document.getElementById('app').clientWidth;
-      pageHeight = document.getElementById('app').clientHeight;
+      pageWidth = document.getElementById('app')!.clientWidth;
+      pageHeight = document.getElementById('app')!.clientHeight;
 
-      canvas.value.width = pageWidth;
-      canvas.value.height = pageHeight;
+      canvas.value!.width = pageWidth;
+      canvas.value!.height = pageHeight;
 
       ctx.fillStyle = '#f1f1f1';
     });

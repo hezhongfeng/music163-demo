@@ -5,13 +5,15 @@ export default function useNext() {
   const store = useStore();
   const { showAnimation } = useAnime();
 
-  const nextPage = ({ currentViewName, nextViewName }) => {
+  interface ViewName {
+    currentViewName: string;
+    nextViewName: string;
+  }
+
+  const nextPage = (view: ViewName) => {
     showAnimation();
     setTimeout(() => {
-      store.commit('routeNext', {
-        currentViewName,
-        nextViewName
-      });
+      store.commit('routeNext', view);
     }, 500);
   };
 

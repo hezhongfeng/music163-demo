@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, onMounted } from 'vue';
+import { Ref, ref, defineComponent, onMounted } from 'vue';
 import * as THREE from 'three';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 
@@ -12,7 +12,7 @@ export default defineComponent({
   components: {},
   props: {},
   setup(props) {
-    const session5 = ref(null);
+    const session5: Ref<HTMLElement | null> = ref(null);
     const StartTime = Date.now();
     let camera: { position: { x: number; z: number } },
       scene: { background: any; add: (arg0: any) => void },
@@ -35,8 +35,8 @@ export default defineComponent({
     // 背景色，目前为天蓝色
     const BackGroundColor = '#1e4877';
 
-    const pageWidth = document.getElementById('app').clientWidth;
-    const pageHeight = document.getElementById('app').clientHeight;
+    const pageWidth = document.getElementById('app')!.clientWidth;
+    const pageHeight = document.getElementById('app')!.clientHeight;
 
     function init() {
       // 透视相机，只有距离相机1~500的物体才可以被渲染
@@ -80,8 +80,8 @@ export default defineComponent({
             value: fog.far
           }
         },
-        vertexShader: document.getElementById('vs').textContent,
-        fragmentShader: document.getElementById('fs').textContent,
+        vertexShader: document.getElementById('vs')!.textContent,
+        fragmentShader: document.getElementById('fs')!.textContent,
         transparent: true
       });
 
@@ -108,7 +108,7 @@ export default defineComponent({
       renderer = new THREE.WebGLRenderer({ antialias: false });
       renderer.setSize(pageWidth, pageHeight);
 
-      session5.value.appendChild(renderer.domElement);
+      session5.value!.appendChild(renderer.domElement);
     }
 
     function animate() {
