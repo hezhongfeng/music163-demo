@@ -6,6 +6,7 @@
 import { Ref, ref, defineComponent, onMounted } from 'vue';
 import * as THREE from 'three';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
+import cloud from 'assets/session5/cloud.png';
 
 export default defineComponent({
   name: 'session5',
@@ -53,7 +54,7 @@ export default defineComponent({
       scene = new THREE.Scene();
       scene.background = new THREE.Color(BackGroundColor);
 
-      const texture = new THREE.TextureLoader().load('src/assets/session5/cloud.png');
+      const texture = new THREE.TextureLoader().load(cloud);
 
       // 一个平面形状
       const geometry = new THREE.PlaneGeometry(64, 64);
