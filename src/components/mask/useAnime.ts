@@ -10,7 +10,8 @@ export default function useAnime() {
   });
 
   const showAnimation = () => {
-    mask.component.ctx.show();
+    // 注意这里不能使用ctx
+    mask.component.proxy.show();
   };
 
   return { showAnimation };
