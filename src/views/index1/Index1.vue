@@ -53,7 +53,7 @@ export default defineComponent({
   .loading {
     width: 55%;
     height: 55%;
-    background-image: url('assets/index1/Loading.svg');
+    background-image: url('assets/index1/loading.svg');
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: 50%;
