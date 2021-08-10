@@ -79,17 +79,17 @@ export default defineComponent({
     display: flex;
     flex-direction: column;
     .intro {
-      margin-top: 10vw;
-      margin-left: 10vw;
-      width: 58.6vw;
-      height: 7.6vw;
+      margin-top: 11%;
+      margin-left: 10%;
+      width: 58.6%;
+      height: 4.4%;
       flex-shrink: 0;
     }
     .badge {
-      top: 6vw;
-      right: 10vw;
-      width: 16.5vw;
-      height: 16.5vw;
+      top: 4.2%;
+      right: 7%;
+      width: 16.5%;
+      height: 16.5%;
       position: absolute;
       .music {
         position: relative;
@@ -115,19 +115,20 @@ export default defineComponent({
       }
     }
     .subtitle {
-      margin-top: 18.1vw;
-      margin-left: 10vw;
-      margin-bottom: 7.72vw;
-      width: 50.6vw;
-      height: 13.5vw;
+      margin-top: 18.1%;
+      margin-left: 10%;
+      margin-bottom: 7.72%;
+      width: 50.6%;
+      height: 7.5%;
     }
     .title {
-      margin-left: 10vw;
-      margin-bottom: 4.53vw;
-      width: 53.6vw;
+      margin-left: 10%;
+      margin-bottom: 4.53%;
+      width: 53.6%;
     }
     .roller {
-      height: 27.2vw;
+      height: 15.33%;
+      width: 100%;
       position: relative;
       overflow: hidden;
       .roller1 {
@@ -145,9 +146,9 @@ export default defineComponent({
         .text {
           transform: rotate(355deg);
           transform-origin: left top;
-          margin-top: 21.4vw;
-          width: 209vw;
-          height: 3.8vw;
+          margin-top: 21%;
+          width: 209%;
+          height: 16%;
           background-image: url('assets/index2/band-text.png');
           animation: roll 20s linear -10s infinite normal both;
           background-size: contain;
@@ -169,9 +170,9 @@ export default defineComponent({
         .text {
           transform: rotate(9.8deg);
           transform-origin: left top;
-          margin-top: 2vw;
-          width: 209vw;
-          height: 3.8vw;
+          margin-top: 2%;
+          width: 209%;
+          height: 16%;
           background-image: url('assets/index2/band-text.png');
           animation: roll 20s linear -10s infinite normal both;
           animation-direction: reverse;
@@ -191,16 +192,16 @@ export default defineComponent({
     .arrow {
       position: absolute;
       right: 0;
-      bottom: 15vh;
-      width: 36.1vw;
-      height: 14.4vw;
+      bottom: 15.5vh;
+      width: 36.1%;
+      height: 8%;
     }
     .footer {
       position: absolute;
-      right: 5vw;
-      bottom: 5vw;
-      width: 90.19vw;
-      height: 10.2vw;
+      right: 5%;
+      bottom: 2.5%;
+      width: 90.19%;
+      height: 5.6%;
     }
   }
 }

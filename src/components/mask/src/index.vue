@@ -1,11 +1,12 @@
 <template>
-  <teleport to="body">
+  <!-- 这个canvas会被渲染为 app 的子级 -->
+  <teleport to="#app">
     <canvas class="mask-canvas" ref="canvas" :class="{ 'mask-canvas-posi': isShow }"></canvas>
   </teleport>
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, onMounted } from 'vue';
+import { Ref, ref, defineComponent, onMounted } from 'vue';
 import anime from 'animejs/lib/anime.es.js';
 
 export default defineComponent({
@@ -16,7 +17,7 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const canvas = ref(null);
+    const canvas: Ref<HTMLCanvasElement | null> = ref(null);
 
     const isShow = ref(false);
 
@@ -51,17 +52,49 @@ export default defineComponent({
           y: heights[0]
         }
       };
+
+      // P1点的变化
       anime({
         targets: points.p1,
         x: 0,
-        easing: 'easeInQuad',
-        round: 10,
+        easing: 'easeInQuart',
         delay: 50,
-        duration: 400,
+        duration: 500
+      });
+
+      // P2点的变化
+      anime({
+        targets: points.p2,
+        x: 0,
+        easing: 'easeInSine',
+        duration: 500
+      });
+
+      anime({
+        targets: points.p2,
+        y: 0.6 * pageHeight,
+        easing: 'easeInSine',
+        duration: 500
+      });
+
+      // P3点的变化
+      anime({
+        targets: points.p3,
+        x: 0,
+        easing: 'easeInQuart',
+        delay: 50,
+        duration: 500
+      });
+
+      // 画曲线
+      anime({
+        duration: 550,
         update: function () {
+          // 清除上一次的绘制
           ctx.clearRect(0, 0, pageWidth, pageHeight);
           ctx.beginPath();
           ctx.moveTo(points.p1.x, points.p1.y);
+          // 幕布的上半区域
           ctx.bezierCurveTo(
             points.p1.x,
             points.p1.y,
@@ -70,6 +103,7 @@ export default defineComponent({
             points.p2.x,
             points.p2.y
           );
+          // 幕布的下半区域
           ctx.bezierCurveTo(
             points.p2.x,
             points.p2.y + 0.2 * pageHeight,
@@ -78,6 +112,7 @@ export default defineComponent({
             points.p3.x,
             points.p3.y
           );
+          // 已拉动部分的矩形区域
           ctx.lineTo(points.p4.x, points.p4.y);
           ctx.lineTo(points.p5.x, points.p5.y);
           ctx.closePath();
@@ -89,33 +124,16 @@ export default defineComponent({
           isShow.value = false;
         }
       });
-
-      anime({
-        targets: points.p3,
-        x: 0,
-        easing: 'easeInQuad',
-        round: 20,
-        delay: 50,
-        duration: 400
-      });
-
-      anime({
-        targets: points.p2,
-        x: 0,
-        easing: 'easeOutQuad',
-        round: 20,
-        duration: 450
-      });
     };
 
     onMounted(() => {
-      ctx = canvas.value.getContext('2d');
+      ctx = canvas.value!.getContext('2d');
 
-      pageWidth = window.innerWidth;
-      pageHeight = window.innerHeight;
+      pageWidth = document.getElementById('app')!.clientWidth;
+      pageHeight = document.getElementById('app')!.clientHeight;
 
-      canvas.value.width = pageWidth;
-      canvas.value.height = pageHeight;
+      canvas.value!.width = pageWidth;
+      canvas.value!.height = pageHeight;
 
       ctx.fillStyle = '#f1f1f1';
     });
@@ -132,7 +150,7 @@ export default defineComponent({
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
 }
 

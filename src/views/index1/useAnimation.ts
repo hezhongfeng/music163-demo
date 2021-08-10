@@ -49,7 +49,7 @@ export default function useAnimation() {
       round: 1,
       duration: 2700,
       update: function () {
-        numberEl.innerHTML = number.value + '%';
+        numberEl!.innerHTML = number.value + '%';
       }
     });
   };

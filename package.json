@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "animejs": "^3.2.1",
-    "three": "^0.130.1",
+    "three": "^0.131.3",
     "vue": "^3.1.5",
     "vue-router": "4",
     "vuex": "^4.0.2"
