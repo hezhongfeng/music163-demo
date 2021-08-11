@@ -60,6 +60,29 @@ export default defineComponent({
       const geometry = new THREE.PlaneGeometry(64, 64);
       const geometries = [];
 
+      const vShader = `
+        varying vec2 vUv;
+        void main()
+        {
+          vUv = uv;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+        }
+      `;
+      const fShader = `
+        uniform sampler2D map;
+        uniform vec3 fogColor;
+        uniform float fogNear;
+        uniform float fogFar;
+        varying vec2 vUv;
+        void main()
+        {
+          float depth = gl_FragCoord.z / gl_FragCoord.w;
+          float fogFactor = smoothstep( fogNear, fogFar, depth );
+          gl_FragColor = texture2D(map, vUv );
+          gl_FragColor.w *= pow( gl_FragCoord.z, 20.0 );
+          gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );
+        }
+      `;
       // 贴图材质
       const material = new THREE.ShaderMaterial({
         // 这里的值是给着色器传递的
@@ -81,8 +104,8 @@ export default defineComponent({
             value: fog.far
           }
         },
-        vertexShader: document.getElementById('vs')!.textContent,
-        fragmentShader: document.getElementById('fs')!.textContent,
+        vertexShader: vShader,
+        fragmentShader: fShader,
         transparent: true
       });
 
