@@ -1,7 +1,7 @@
 <template>
   <div class="index1">
-    <div class="loading" v-show="showLoading" :class="{ show: showLoading }">
-      <div class="title" @click="onNext">进入</div>
+    <div class="loading" v-show="showLoading" :class="{ show: showLoading }" @click="onNext">
+      <div class="title">进入</div>
       <div class="desc">请打开声音</div>
     </div>
     <div class="ani" v-show="!showLoading" :class="{ hide: !showInit }">
