@@ -1,5 +1,7 @@
 # 模仿《你的性格主导色》
 
+![](https://raw.githubusercontent.com/hezhongfeng/images/master/163.gif?token=AC4ZP2XPYYRP6GI7HXOOOOLDBQEP2)
+
 > Vue 3 + Typescript + Vite
 
 在线 [Demo](https://hezf-music.vercel.app/)
